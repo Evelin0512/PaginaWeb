@@ -1,17 +1,3 @@
-// Reemplaza este objeto con tu configuración de Firebase.
-const firebaseConfig = {
-  apiKey: "AIzaSyAN01-giSTPTeQfiK_LLXaeLB2SC4cWYSQ",
-  authDomain: "sistemaaccesovehicular.firebaseapp.com",
-  projectId: "sistemaaccesovehicular",
-  storageBucket: "sistemaaccesovehicular.firebasestorage.app",
-  messagingSenderId: "1094694092805",
-  appId: "1:1094694092805:web:92f9e536cbfa484cb75c6c"
-};
-
-console.log("Firebase configurado correctamente");
-
-// Aquí irá la lógica de Firestore.
-// Este proyecto es la estructura base para continuar la integración.
 // =========================
 // IMPORTACIONES FIREBASE
 // =========================
@@ -36,106 +22,55 @@ import {
 // =========================
 
 const firebaseConfig = {
-
     apiKey: "AIzaSyAN01-giSTPTeQfiK_LLXaeLB2SC4cWYSQ",
-
     authDomain: "sistemaaccesovehicular.firebaseapp.com",
-
     projectId: "sistemaaccesovehicular",
-
     storageBucket: "sistemaaccesovehicular.firebasestorage.app",
-
     messagingSenderId: "1094694092805",
-
     appId: "1:1094694092805:web:92f9e536cbfa484cb75c6c"
-
 };
-
 
 // =========================
 // INICIALIZAR FIREBASE
 // =========================
 
 const app = initializeApp(firebaseConfig);
-
 const db = getFirestore(app);
-
 const vehiculos = collection(db, "vehiculos");
-
 
 // =========================
 // ELEMENTOS HTML
 // =========================
 
 const placa = document.getElementById("placa");
-
 const propietario = document.getElementById("propietario");
-
 const marca = document.getElementById("marca");
-
 const tipo = document.getElementById("tipo");
 
 const btnEntrada = document.getElementById("btnEntrada");
-
 const btnSalida = document.getElementById("btnSalida");
 
 const tabla = document.getElementById("tabla");
-
 const buscar = document.getElementById("buscar");
-
 const total = document.getElementById("total");
 
-
 // =========================
-// REGISTRAR ENTRADA
-// =========================
-
-btnEntrada.addEventListener("click", async () => {
-
-    if (
-        placa.value.trim() === "" ||
-        propietario.value.trim() === "" ||
-        marca.value.trim() === ""
-    ) {
-
-        alert("Completa todos los campos.");
-
-        return;
-
-    }
-
-    await guardarRegistro("Entrada");
-
-});
-
-
-// =========================
-// REGISTRAR SALIDA
+// REGISTRAR
 // =========================
 
-btnSalida.addEventListener("click", async () => {
-
-    if (
-        placa.value.trim() === "" ||
-        propietario.value.trim() === "" ||
-        marca.value.trim() === ""
-    ) {
-
-        alert("Completa todos los campos.");
-
-        return;
-
-    }
-
-    await guardarRegistro("Salida");
-
-});
-
-// =========================
-// GUARDAR REGISTRO
-// =========================
+btnEntrada.addEventListener("click", () => guardarRegistro("Entrada"));
+btnSalida.addEventListener("click", () => guardarRegistro("Salida"));
 
 async function guardarRegistro(accion) {
+
+    if (
+        placa.value.trim() === "" ||
+        propietario.value.trim() === "" ||
+        marca.value.trim() === ""
+    ) {
+        alert("Completa todos los campos.");
+        return;
+    }
 
     try {
 
@@ -158,28 +93,22 @@ async function guardarRegistro(accion) {
         });
 
         placa.value = "";
-
         propietario.value = "";
-
         marca.value = "";
-
         tipo.selectedIndex = 0;
 
-    }
-
-    catch (error) {
+    } catch (error) {
 
         console.error(error);
 
-        alert("Error al guardar el registro.");
+        alert("Error al guardar.");
 
     }
 
 }
 
-
 // =========================
-// CARGAR REGISTROS
+// MOSTRAR DATOS
 // =========================
 
 const consulta = query(
@@ -191,108 +120,74 @@ onSnapshot(consulta, (snapshot) => {
 
     tabla.innerHTML = "";
 
-    let contador = 0;
+    total.textContent = snapshot.size;
 
-    snapshot.forEach((documento) => {
+    snapshot.forEach((docu) => {
 
-        contador++;
-
-        const datos = documento.data();
+        const datos = docu.data();
 
         tabla.innerHTML += `
-
         <tr>
 
-            <td>${datos.placa}</td>
+        <td>${datos.placa}</td>
 
-            <td>${datos.propietario}</td>
+        <td>${datos.propietario}</td>
 
-            <td>${datos.marca}</td>
+        <td>${datos.marca}</td>
 
-            <td>${datos.tipo}</td>
+        <td>${datos.tipo}</td>
 
-            <td>${datos.fecha}</td>
+        <td>${datos.fecha}</td>
 
-            <td>${datos.accion}</td>
+        <td>${datos.accion}</td>
 
-            <td>
+        <td>
 
-                <button
-                    class="eliminar"
-                    onclick="eliminarRegistro('${documento.id}')">
+        <button onclick="eliminarRegistro('${docu.id}')">
+        Eliminar
+        </button>
 
-                    Eliminar
-
-                </button>
-
-            </td>
+        </td>
 
         </tr>
-
         `;
 
     });
 
-    total.textContent = contador;
-
 });
 
 // =========================
-// ELIMINAR REGISTRO
+// ELIMINAR
 // =========================
 
-window.eliminarRegistro = async function(id) {
+window.eliminarRegistro = async function(id){
 
-    const confirmar = confirm("¿Deseas eliminar este registro?");
+    if(confirm("¿Eliminar registro?")){
 
-    if (!confirmar) return;
-
-    try {
-
-        await deleteDoc(doc(db, "vehiculos", id));
-
-    } catch (error) {
-
-        console.error(error);
-
-        alert("No se pudo eliminar el registro.");
+        await deleteDoc(doc(db,"vehiculos",id));
 
     }
 
-};
-
+}
 
 // =========================
-// BUSCAR POR PLACA
+// BUSCADOR
 // =========================
 
-buscar.addEventListener("keyup", () => {
+buscar.addEventListener("keyup", ()=>{
 
     const texto = buscar.value.toLowerCase();
 
     const filas = tabla.getElementsByTagName("tr");
 
-    for (let fila of filas) {
+    for(let fila of filas){
 
         const placa = fila.cells[0].textContent.toLowerCase();
 
-        if (placa.includes(texto)) {
-
-            fila.style.display = "";
-
-        } else {
-
-            fila.style.display = "none";
-
-        }
+        fila.style.display = placa.includes(texto) ? "" : "none";
 
     }
 
 });
 
-
-// =========================
-// FIREBASE CONECTADO
-// =========================
-
-console.log("✅ Sistema conectado con Firebase correctamente.");
+console.log("✅ Firebase conectado correctamente.");
