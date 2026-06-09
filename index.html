@@ -1,277 +1,140 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sistema de Acceso Vehicular </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Acceso Vehicular</title>
 
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, sans-serif;
-}
-
-body{
-    background:#f4f6f9;
-}
-
-header{
-    background:#1e3a8a;
-    color:white;
-    text-align:center;
-    padding:20px;
-}
-
-header h1{
-    margin-bottom:10px;
-}
-
-.container{
-    width:90%;
-    max-width:1200px;
-    margin:30px auto;
-}
-
-.card{
-    background:white;
-    padding:25px;
-    border-radius:10px;
-    box-shadow:0 2px 10px rgba(0,0,0,.1);
-    margin-bottom:25px;
-}
-
-h2{
-    color:#1e3a8a;
-    margin-bottom:15px;
-}
-
-form{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:15px;
-}
-
-input, select{
-    padding:10px;
-    border:1px solid #ccc;
-    border-radius:5px;
-}
-
-.botones{
-    grid-column:1/-1;
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-}
-
-button{
-    border:none;
-    padding:10px 20px;
-    border-radius:5px;
-    cursor:pointer;
-    color:white;
-    font-weight:bold;
-}
-
-.entrada{
-    background:#16a34a;
-}
-
-.salida{
-    background:#dc2626;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:15px;
-}
-
-th{
-    background:#1e3a8a;
-    color:white;
-    padding:12px;
-}
-
-td{
-    border:1px solid #ddd;
-    padding:10px;
-    text-align:center;
-}
-
-.eliminar{
-    background:#dc2626;
-    padding:6px 12px;
-}
-
-footer{
-    background:#1e3a8a;
-    color:white;
-    text-align:center;
-    padding:15px;
-    margin-top:20px;
-}
-
-.contador{
-    font-size:18px;
-    font-weight:bold;
-    color:#16a34a;
-    margin-bottom:15px;
-}
-</style>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<header>
-    <h1>Sistema de Acceso Vehicular</h1>
-    <p>Estacionamiento Escolar</p>
-</header>
+    <header>
 
-<div class="container">
+        <h1>🚗 Sistema de Acceso Vehicular</h1>
+        <p>Estacionamiento Escolar</p>
 
-    <div class="card">
+    </header>
 
-        <h2>Registro de Vehículos</h2>
+    <main class="contenedor">
 
-        <form id="formulario">
+        <section class="card">
 
-            <input type="text"
-                   id="placa"
-                   placeholder="Placa del vehículo"
-                   required>
+            <h2>Registro de Vehículos</h2>
 
-            <input type="text"
-                   id="propietario"
-                   placeholder="Propietario"
-                   required>
+            <form id="formulario">
 
-            <input type="text"
-                   id="marca"
-                   placeholder="Marca"
-                   required>
+                <input
+                    type="text"
+                    id="placa"
+                    placeholder="Placa del vehículo"
+                    required>
 
-            <select id="tipo">
-                <option>Estudiante</option>
-                <option>Docente</option>
-                <option>Visitante</option>
-            </select>
+                <input
+                    type="text"
+                    id="propietario"
+                    placeholder="Propietario"
+                    required>
 
-            <div class="botones">
+                <input
+                    type="text"
+                    id="marca"
+                    placeholder="Marca"
+                    required>
 
-                <button type="button"
-                        class="entrada"
-                        onclick="registrar('Entrada')">
-                    Registrar Entrada
-                </button>
+                <select id="tipo">
 
-                <button type="button"
-                        class="salida"
-                        onclick="registrar('Salida')">
-                    Registrar Salida
-                </button>
+                    <option value="Estudiante">Estudiante</option>
+                    <option value="Docente">Docente</option>
+                    <option value="Visitante">Visitante</option>
+
+                </select>
+
+                <div class="botones">
+
+                    <button
+                        type="button"
+                        id="btnEntrada"
+                        class="entrada">
+
+                        Registrar Entrada
+
+                    </button>
+
+                    <button
+                        type="button"
+                        id="btnSalida"
+                        class="salida">
+
+                        Registrar Salida
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+        <section class="card">
+
+            <h2>Historial de Accesos</h2>
+
+            <div class="contador">
+
+                Total de registros:
+                <span id="total">
+
+                    0
+
+                </span>
 
             </div>
 
-        </form>
+            <input
+                type="text"
+                id="buscar"
+                placeholder="Buscar por placa...">
 
-    </div>
+            <table>
 
-    <div class="card">
+                <thead>
 
-        <h2>Historial de Accesos</h2>
+                    <tr>
 
-        <div class="contador">
-            Total de registros: <span id="total">0</span>
-        </div>
+                        <th>Placa</th>
+                        <th>Propietario</th>
+                        <th>Marca</th>
+                        <th>Tipo</th>
+                        <th>Fecha</th>
+                        <th>Acción</th>
+                        <th>Eliminar</th>
 
-        <table>
+                    </tr>
 
-            <thead>
-                <tr>
-                    <th>Placa</th>
-                    <th>Propietario</th>
-                    <th>Marca</th>
-                    <th>Tipo Usuario</th>
-                    <th>Fecha y Hora</th>
-                    <th>Acción</th>
-                    <th>Eliminar</th>
-                </tr>
-            </thead>
+                </thead>
 
-            <tbody id="tabla">
-            </tbody>
+                <tbody id="tabla">
 
-        </table>
+                </tbody>
 
-    </div>
+            </table>
 
-</div>
+        </section>
 
-<footer>
-    Proyecto: Aplicación Web de Acceso Vehicular para Estacionamiento Escolar
-</footer>
+    </main>
 
-<script>
+    <footer>
 
-function registrar(accion){
+        Sistema de Acceso Vehicular |
+        Firebase + GitHub Pages
 
-    let placa = document.getElementById("placa").value;
-    let propietario = document.getElementById("propietario").value;
-    let marca = document.getElementById("marca").value;
-    let tipo = document.getElementById("tipo").value;
+    </footer>
 
-    if(placa === "" || propietario === "" || marca === ""){
-        alert("Por favor completa todos los campos.");
-        return;
-    }
-
-    let fecha = new Date().toLocaleString();
-
-    let fila = `
-        <tr>
-            <td>${placa}</td>
-            <td>${propietario}</td>
-            <td>${marca}</td>
-            <td>${tipo}</td>
-            <td>${fecha}</td>
-            <td>${accion}</td>
-            <td>
-                <button class="eliminar"
-                        onclick="eliminarRegistro(this)">
-                    Eliminar
-                </button>
-            </td>
-        </tr>
-    `;
-
-    document.getElementById("tabla").innerHTML += fila;
-
-    document.getElementById("formulario").reset();
-
-    actualizarContador();
-}
-
-function eliminarRegistro(boton){
-
-    let confirmar = confirm("¿Deseas eliminar este registro?");
-
-    if(confirmar){
-        boton.parentElement.parentElement.remove();
-        actualizarContador();
-    }
-}
-
-function actualizarContador(){
-
-    let filas =
-        document.querySelectorAll("#tabla tr").length;
-
-    document.getElementById("total").textContent = filas;
-}
-
-</script>
+    <script type="module" src="app.js"></script>
 
 </body>
+
 </html>

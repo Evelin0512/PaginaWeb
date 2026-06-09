@@ -1,0 +1,144 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+}
+
+header{
+    background:#1e3a8a;
+    color:white;
+    text-align:center;
+    padding:25px;
+}
+
+header h1{
+    margin-bottom:10px;
+}
+
+.contenedor{
+    width:90%;
+    max-width:1200px;
+    margin:30px auto;
+}
+
+.card{
+    background:white;
+    border-radius:12px;
+    padding:25px;
+    margin-bottom:25px;
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+}
+
+.card h2{
+    color:#1e3a8a;
+    margin-bottom:20px;
+}
+
+form{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+}
+
+input,
+select{
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:15px;
+}
+
+input:focus,
+select:focus{
+    outline:none;
+    border-color:#1e3a8a;
+}
+
+.botones{
+    grid-column:1/-1;
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+button{
+    cursor:pointer;
+    border:none;
+    color:white;
+    font-weight:bold;
+    padding:12px 20px;
+    border-radius:8px;
+    transition:.3s;
+}
+
+button:hover{
+    transform:scale(1.03);
+}
+
+.entrada{
+    background:#16a34a;
+}
+
+.salida{
+    background:#dc2626;
+}
+
+#buscar{
+    width:100%;
+    margin:15px 0;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+th{
+    background:#1e3a8a;
+    color:white;
+    padding:12px;
+}
+
+td{
+    padding:10px;
+    border:1px solid #ddd;
+    text-align:center;
+}
+
+.eliminar{
+    background:#dc2626;
+    padding:8px 12px;
+}
+
+.contador{
+    font-size:18px;
+    color:#16a34a;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+footer{
+    background:#1e3a8a;
+    color:white;
+    text-align:center;
+    padding:18px;
+    margin-top:30px;
+}
+
+@media(max-width:768px){
+
+table{
+    font-size:13px;
+}
+
+button{
+    width:100%;
+}
+
+}
