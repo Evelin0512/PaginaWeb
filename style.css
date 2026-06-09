@@ -135,11 +135,9 @@ footer{
 /* DISEÑO RESPONSIVO */
 /* ========================= */
 
-@media (max-width: 768px) {
+/* ===== RESPONSIVE PARA CELULARES ===== */
 
-    header h1{
-        font-size: 38px;
-    }
+@media (max-width: 768px) {
 
     .contenedor{
         width:95%;
@@ -150,28 +148,13 @@ footer{
         padding:20px;
     }
 
-    input,
-    select,
-    button{
-        width:100%;
-        margin-bottom:12px;
-    }
-
-    .botones{
-        display:flex;
-        flex-direction:column;
-        gap:10px;
-    }
-
     table{
-        display:block;
-        overflow-x:auto;
-        white-space:nowrap;
+        min-width:700px;
     }
 
-    footer{
-        font-size:16px;
-        padding:15px;
+    .tabla-responsive{
+        overflow-x:auto;
+        width:100%;
     }
 
 }
